@@ -154,8 +154,8 @@ let listaTareasNuevas: Tarea[] = [
 
 //Foreach
 listaTareasNuevas.forEach(
-    (tarea: Tarea, index:number) =>
-        {console.log(`${index} - ${tarea.nombre}`);
+    (tarea: Tarea, i:number) =>
+        {console.log(`${i} - ${tarea.nombre}`);
     }
 );
  //For clasico de toa la vida
