@@ -323,22 +323,71 @@ obtengoSalario(empleado1, () => 'Cobrar Empleado1')
 const funcionMuestra = function (){
     console.log("CallBack desde función estándar");
 }
-setTimeout(funcionMuestra,100); // La función timeout llama a funciónMuestra después de 100ms
+//setTimeout(funcionMuestra,100); // La función timeout llama a funciónMuestra después de 100ms
 
 // Ejemplo 2: paso de una función anónima
-setTimeout(function(){console.log("CallBack desde función anónima")},1000);
+//setTimeout(function(){console.log("CallBack desde función anónima")},1000);
 
 // Ejemplo 3: paso de una función flecha
-setTimeout(()=>{console.log("CallBack desde función flecha")},500);
+//setTimeout(()=>{console.log("CallBack desde función flecha")},500);
 
-// Ejemplo 4: 
+
+
+
+//Funcion Callback ejemplo Jose
 let fsuma = function suma(a:number, b:number){
-    console.log("Llamada desde función opera")
     return a+b;
 }
-console.log(fsuma(2,2))
+
 let fresta = function resta(a:number,b:number){
     return a-b;
 }
-console.log(fresta(2,2))
 
+function opera(x:number, y:number, funcion:(a:number,b:number)=>number){
+    return funcion(x,y);
+}
+opera(1,2,fsuma); //Devuelve la suma de esos numeros
+opera(1,2,fresta); //Devuelve la resta de esos numeros
+
+//Funciones asincronas ejemplo Jose
+async function asincrona(){
+    let suma:number = 0;
+    for(let i=0;i<10000000;i++){
+        suma+=i;
+        
+    }
+    return suma;
+}
+
+asincrona().then((data:number) => {console.log(`El resultado de async es ${data}`)});
+console.log(`Linea posterior a la llamada asincrona`);
+
+
+
+//Ejemplo real de asyncrono
+//Mas simple y metiendolo en objetos
+type University = {
+    domains: string[],
+    alpha_two_code: string,
+    name:string
+
+}
+async function getDataUniversity() : Promise <University []> {
+  const data = await fetch("http://universities.hipolabs.com/search?country=Spain");
+  let respuesta:Promise <University[]> = await data.json() as Promise <University[]>;
+  return respuesta;
+}
+
+getDataUniversity().then((data:University[]) => {data.forEach((universidad) => {console.log(universidad.name)})
+});
+
+
+function* fgeneradora():Generator<Tarea>{
+   
+    for (let tarea  in listaTareasNuevas) {
+        yield listaTareasNuevas[tarea]
+    }
+}
+
+let funciongen = fgeneradora();
+console.log(funciongen.next());
