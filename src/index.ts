@@ -391,3 +391,60 @@ function* fgeneradora():Generator<Tarea>{
 
 let funciongen = fgeneradora();
 console.log(funciongen.next());
+
+//ASYNC GENERADORA
+
+function* fgeneradora2 () : Generator<string>{
+    yield "Hola"
+    yield "Mundo"
+    yield "IES"
+}
+
+let llamadafgen2 = fgeneradora2();
+
+
+console.log(llamadafgen2.next()); //Hola
+console.log(llamadafgen2.next()); //Mundo
+console.log(llamadafgen2.next()); //IES
+
+type WebPage = {
+    Name:string,
+    Domain:string,
+    Description:string
+}
+async function* obtenerDatosWeb(): AsyncGenerator<WebPage>{
+    let peticion = await fetch("https://haveibeenpwned.com/api/v2/breaches")
+    let datos:WebPage[]= await peticion.json() as WebPage[];
+
+    for(let i=0; i<datos.length;i++){
+        yield datos[i];
+    }
+
+}
+
+let datosWebPage = obtenerDatosWeb();
+
+datosWebPage.next().then(({value, done})=>{console.log(`${value.Name} - ${value.Description}`)}) ;
+
+//SOBRECARGA DE FUNCIONES
+
+
+function saludarSobrecarga (nombre:string):string;
+function saludarSobrecarga (nombre:string, apellido:string):string;
+function saludarSobrecarga (nombre:string, apellido:string, edad:string):string;
+
+function saludarSobrecarga (nombre:string, apellido?:string, edad?:string|number){
+    
+    let saludo = `Hola ${nombre}`
+
+    if(apellido != undefined){
+        saludo = saludo+`${apellido}`
+    }
+    if(edad != undefined){
+        saludo = saludo+`${edad}`
+    }
+
+    return saludo;
+}
+
+saludarSobrecarga(`Josema`);
