@@ -30,7 +30,9 @@
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "install": "^0.13.0",
+    "js-cookie": "^3.0.5",
     "npm": "^10.9.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.6.3",

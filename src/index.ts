@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 console.log("Hola Mundo")
 
 
@@ -372,14 +374,13 @@ type University = {
     name:string
 
 }
-async function getDataUniversity() : Promise <University []> {
-  const data = await fetch("http://universities.hipolabs.com/search?country=Spain");
-  let respuesta:Promise <University[]> = await data.json() as Promise <University[]>;
-  return respuesta;
-}
+//async function getDataUniversity() : Promise <University []> {
+  //const data = await fetch("http://universities.hipolabs.com/search?country=Spain");
+  //let respuesta:Promise <University[]> = await data.json() as Promise <University[]>;
+  //return respuesta;
+//}
 
-getDataUniversity().then((data:University[]) => {data.forEach((universidad) => {console.log(universidad.name)})
-});
+//getDataUniversity().then((data:University[]) => {data.forEach((universidad) => {console.log(universidad.name)}});
 
 
 function* fgeneradora():Generator<Tarea>{
@@ -448,3 +449,76 @@ function saludarSobrecarga (nombre:string, apellido?:string, edad?:string|number
 }
 
 saludarSobrecarga(`Josema`);
+
+
+
+//Ejercicio 2
+
+function ej2_tarea1(type:String = "SessionStorage", key:string, data:Tarea[]){
+
+    if(type == "session"){
+        sessionStorage.setItem(key, data.toString());
+        console.log("Subido en el sessionStorage");
+    } else if (type == "local"){
+        localStorage.setItem(key, data.toString());
+        console.log("Subido en el localStorage");
+    }else{
+        console.log("Debe ser una de las dos");
+    }
+}
+
+//Ejercicio 3
+
+ej2_tarea1("session", "datos", listaTareasNuevas)
+ej2_tarea1("local", "datos", listaTareasNuevas)
+
+//Ejercicio 4
+
+function ej4_tarea1_recuperar(type:String = "session", key:string){
+
+    if(type == "session"){
+        console.log("Devuelto el sessionstorage");
+        return sessionStorage.getItem(key);
+    } else if (type == "local"){
+        console.log("Devuelto el localStorage");
+        return localStorage.getItem(key);
+    }else{
+        console.log("Debe ser una de las dos");
+    }
+}
+
+//Ejercicio 5
+
+ej4_tarea1_recuperar("session", "datos")
+ej4_tarea1_recuperar("local", "datos")
+
+//Ejercicio 6
+
+function ej6_tarea1_eliminar(type: string, key: string){
+    if (type === "session") {
+        sessionStorage.removeItem(key);
+        console.log("sessionStorage eliminada");
+    } else if (type === "local") {
+        localStorage.removeItem(key);
+        console.log("localStorage eliminada");
+    } else {
+        console.log("Debe ser una de las dos");
+    }
+}
+
+ej6_tarea1_eliminar("session", "datos")
+ej6_tarea1_eliminar("local", "datos")
+
+//Ejercicio 7 - COOKIES
+
+Cookies.set('nombre', 'AJesus', {expires:7,path:"/"})
+Cookies.set('apellidos', 'Barroso', { expires: 2, path: '/' });
+Cookies.set('email', 'abarmes1411@iescarrillo.es', { expires: 4, path: '/' });
+
+console.log(Cookies.get('nombre'));
+console.log(Cookies.get('apellidos'));
+console.log(Cookies.get('email'));
+
+Cookies.remove('nombre');
+Cookies.remove('apellidos');
+Cookies.remove('email');
