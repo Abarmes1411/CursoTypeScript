@@ -554,3 +554,32 @@ btnNuevoContenido.addEventListener("click",(event)=>{
     //TO DO: 
     console.log("Usuario hace click ene l boton")
 });
+
+//EVENTOS
+
+
+let divisor:HTMLDivElement = document.getElementsByTagName("div")[0] as HTMLDivElement;
+
+/**
+ * Define e implementa una funcion generica que reciba como pareametro lo que 
+ * consideres oportuno y en funcion del tipo de evento que se produczca en un elemento del DOM,
+ * realice una funcon diferente
+ */
+function ejecutaalgo(evento:Event) {
+    switch (evento.type) {
+        case "click":
+            console.log("Usuario hace click")
+            break;
+        case "dblclick":
+            console.log("Usuario hace doble click")    
+            break;
+        default:
+            break;
+    }
+}
+divisor.addEventListener('click', ejecutaalgo);
+
+
+let elementOL: HTMLOListElement = document.getElementById("lista-contenidos") as HTMLOListElement;
+let primerElemento:HTMLElement = elementOL.children[0] as HTMLElement
+console.log(primerElemento)

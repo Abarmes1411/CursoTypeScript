@@ -1,0 +1,3 @@
+//Ejercicio de botones Add y Remove, crearlos, añadirles un event para cuando se haga click o doble
+//click y que saque por el log que ha pasado por dentro. Luego hacer dos listas, donde el boton add añada a la lista 1
+// y el remve lo quite. Por ultimo, mover elementos de la lista 1 a la 2
