@@ -453,84 +453,84 @@ saludarSobrecarga(`Josema`);
 
 
 //Ejercicio 2
+// function ej2_tarea1(type:String = "SessionStorage", key:string, data:Tarea[]){
+// if(type == "session"){
+//     sessionStorage.setItem(key, data.toString());
+//     console.log("Subido en el sessionStorage");
+// } else if (type == "local"){
+//     localStorage.setItem(key, data.toString());
+//     console.log("Subido en el localStorage");
+// }else{
+//     console.log("Debe ser una de las dos");
+// }
+// }
 
-function ej2_tarea1(type:String = "SessionStorage", key:string, data:Tarea[]){
-
-    if(type == "session"){
-        sessionStorage.setItem(key, data.toString());
-        console.log("Subido en el sessionStorage");
-    } else if (type == "local"){
-        localStorage.setItem(key, data.toString());
-        console.log("Subido en el localStorage");
-    }else{
-        console.log("Debe ser una de las dos");
-    }
-}
 
 //Ejercicio 3
 
-ej2_tarea1("session", "datos", listaTareasNuevas)
-ej2_tarea1("local", "datos", listaTareasNuevas)
+// ej2_tarea1("session", "datos", listaTareasNuevas)
+// ej2_tarea1("local", "datos", listaTareasNuevas)
 
 //Ejercicio 4
 
-function ej4_tarea1_recuperar(type:String = "session", key:string){
+// function ej4_tarea1_recuperar(type:String = "session", key:string){
 
-    if(type == "session"){
-        console.log("Devuelto el sessionstorage");
-        return sessionStorage.getItem(key);
-    } else if (type == "local"){
-        console.log("Devuelto el localStorage");
-        return localStorage.getItem(key);
-    }else{
-        console.log("Debe ser una de las dos");
-    }
-}
+//     if(type == "session"){
+//         console.log("Devuelto el sessionstorage");
+//         return sessionStorage.getItem(key);
+//     } else if (type == "local"){
+//         console.log("Devuelto el localStorage");
+//         return localStorage.getItem(key);
+//     }else{
+//         console.log("Debe ser una de las dos");
+//     }
+// }
 
 //Ejercicio 5
 
-ej4_tarea1_recuperar("session", "datos")
-ej4_tarea1_recuperar("local", "datos")
+// ej4_tarea1_recuperar("session", "datos")
+// ej4_tarea1_recuperar("local", "datos")
 
 //Ejercicio 6
 
-function ej6_tarea1_eliminar(type: string, key: string){
-    if (type === "session") {
-        sessionStorage.removeItem(key);
-        console.log("sessionStorage eliminada");
-    } else if (type === "local") {
-        localStorage.removeItem(key);
-        console.log("localStorage eliminada");
-    } else {
-        console.log("Debe ser una de las dos");
-    }
-}
+// function ej6_tarea1_eliminar(type: string, key: string){
+//     if (type === "session") {
+//         sessionStorage.removeItem(key);
+//         console.log("sessionStorage eliminada");
+//     } else if (type === "local") {
+//         localStorage.removeItem(key);
+//         console.log("localStorage eliminada");
+//     } else {
+//         console.log("Debe ser una de las dos");
+//     }
+// }
 
-ej6_tarea1_eliminar("session", "datos")
-ej6_tarea1_eliminar("local", "datos")
+// ej6_tarea1_eliminar("session", "datos")
+// ej6_tarea1_eliminar("local", "datos")
 
-//Ejercicio 7 - COOKIES
+// //Ejercicio 7 - COOKIES
 
-Cookies.set('nombre', 'AJesus', {expires:7,path:"/"})
-Cookies.set('apellidos', 'Barroso', { expires: 2, path: '/' });
-Cookies.set('email', 'abarmes1411@iescarrillo.es', { expires: 4, path: '/' });
+// Cookies.set('nombre', 'AJesus', {expires:7,path:"/"})
+// Cookies.set('apellidos', 'Barroso', { expires: 2, path: '/' });
+// Cookies.set('email', 'abarmes1411@iescarrillo.es', { expires: 4, path: '/' });
 
-console.log(Cookies.get('nombre'));
-console.log(Cookies.get('apellidos'));
-console.log(Cookies.get('email'));
+// console.log(Cookies.get('nombre'));
+// console.log(Cookies.get('apellidos'));
+// console.log(Cookies.get('email'));
 
-Cookies.remove('nombre');
-Cookies.remove('apellidos');
-Cookies.remove('email');
+// Cookies.remove('nombre');
+// Cookies.remove('apellidos');
+// Cookies.remove('email');
 
 
 
 // ACCESO A ELEMENTOS DEL DOM
+const div = document.getElementById("form-curso");
 
 let input = document.getElementById("input-contenido") as HTMLInputElement;
 console.log("Input del string: "+input.value);
 let btnNuevoContenido = document.getElementsByName("btn-add-content")[0] as HTMLButtonElement;
-let div = document.getElementsByTagName("div") as HTMLCollectionOf<HTMLDivElement>;
+
 
 console.log(input);
 console.log(btnNuevoContenido);
@@ -583,3 +583,37 @@ divisor.addEventListener('click', ejecutaalgo);
 let elementOL: HTMLOListElement = document.getElementById("lista-contenidos") as HTMLOListElement;
 let primerElemento:HTMLElement = elementOL.children[0] as HTMLElement
 console.log(primerElemento)
+
+elementOL.removeChild(primerElemento) //Borro el ultimo elemento de la ol
+
+
+
+
+// https://dog.ceo/api/breeds/image/random
+
+
+type Perros = {
+    message:string,
+    status:string
+}
+
+async function obtenerDatosPerros():Promise<Perros>{
+    let peticion = await fetch("https://dog.ceo/api/breeds/image/random")
+    let datos = await peticion.json() as Perros;
+
+  return datos;
+}
+
+//Es asincrona por lo que hay que trabajar dentro del then() con lo que hayamos recogido, ya que si no
+//el codigo se sigue ejecutando, pero la peticion asincrona aun no ha sido completada.
+let datosPerros = obtenerDatosPerros();
+
+datosPerros.then((prueba:Perros)=>{
+    console.log(`${prueba.message} - ${prueba.status}`)
+
+    let imagenPerro = document.createElement("img") as HTMLImageElement;
+    imagenPerro.src = prueba.message
+    let body = document.getElementsByTagName("body")[0] as HTMLBodyElement
+    body.appendChild(imagenPerro);
+}) ;
+
